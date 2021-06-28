@@ -5,7 +5,7 @@ db.sqlite3
 
 *.pyc
 
-collectedstatic/*
+/tutorial/collectedstatic/*
 
 /tutorial/db.sqlite3
 
