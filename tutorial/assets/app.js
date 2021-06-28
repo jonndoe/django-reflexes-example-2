@@ -10,3 +10,5 @@ import("./js/bootstrap/bootstrap.bundle.min");
 import("./js/bootstrap/jquery.min");
 import("./js/bootstrap/prism");
 import("./js/project");
+
+import("../blog/javascript/examplereflex_with_js");

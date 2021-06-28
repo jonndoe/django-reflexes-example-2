@@ -1,8 +1,11 @@
+{% extends 'base.html' %}
+
 
 {% load static %}
-<body>
+{% block content %}
     
-    
+    <h3> This is simple reflex, it does not have javascript controller.</h3>
+
     <script src="{% static 'sockpuppet/sockpuppet.js' %}"></script>
     <a
       href="#"
@@ -10,4 +13,5 @@
       data-count="{{ count }}"
     >Increment </a><span>{{ count }}</span>
     
-</body>
+{% endblock content %}    
+

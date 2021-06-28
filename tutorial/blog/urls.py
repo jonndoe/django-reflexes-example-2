@@ -1,7 +1,9 @@
 from django.conf.urls import url
 from django.urls import path
 
-from blog.views import PostListView, PostDetailView, SearchResultView, SearchPageView
+from blog.views.views import PostListView, PostDetailView, SearchResultView, SearchPageView
+from blog.views.examplereflex import ExamplereflexView
+from blog.views.examplereflex_with_js import ExamplereflexWithJsView
 
 from blog.models import Post
 
@@ -15,4 +17,6 @@ urlpatterns = [
         PostDetailView.as_view(), name='post_detail'),
     path('search/', SearchResultView.as_view(), name='search_result'),
     path('search-page/', SearchPageView.as_view(), name='search_page'),
+    path('example-reflex/', ExamplereflexView.as_view(), name='example_reflex'),
+    path('example-reflex-js/', ExamplereflexWithJsView.as_view(), name='example_reflex_js')
 ]
