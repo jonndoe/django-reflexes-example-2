@@ -24,3 +24,24 @@
 .nounderline {
   text-decoration: none !important
 }
+
+
+#django-logo {
+  background-image: url('../img/django.png');
+  background-size: contain;
+  width: 500px;
+  height: 46px;
+}
+
+#django {
+  color: #0C4B33;
+  margin-bottom: 20px;
+}
+
+#webpack {
+  color: #465e69;
+}
+
+#chunk {
+  color: orangered;
+}

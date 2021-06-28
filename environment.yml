@@ -1,4 +1,4 @@
-name: env38_dj_webpack_commxtd
+name: env38_python_nodejs
 channels:
   - defaults
 dependencies:
@@ -42,6 +42,7 @@ dependencies:
     - cryptography==3.4.7
     - daphne==3.0.2
     - django==3.1.4
+    - django-comments-xtd==2.9.1
     - django-contrib-comments==2.1.0
     - django-cors-headers==3.6.0
     - django-debug-toolbar==3.2.1
@@ -52,7 +53,6 @@ dependencies:
     - django-rosetta==0.9.6
     - django-seed==0.2.2
     - django-sockpuppet==0.6.0
-    - django-turbolinks==0.5.1
     - django-webpack-loader==0.6.0
     - django-widget-tweaks==1.4.8
     - djangorestframework==3.12.2
@@ -105,4 +105,4 @@ dependencies:
     - urllib3==1.26.4
     - whitenoise==5.0.1
     - zope-interface==5.4.0
-prefix: /home/habrauser/miniconda3/envs/env38_dj_webpack_commxtd
+prefix: /home/username/miniconda3/envs/env38_python_nodejs
