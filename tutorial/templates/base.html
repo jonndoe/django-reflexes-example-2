@@ -16,7 +16,7 @@
     
     <!-- Your stuff: Third-party CSS libraries go here -->
 
-    <!-- This file stores project-specific CSS -->
+    <!-- This file stores ALL css for project, and it was build with webpack CSS -->
     <link href="{% static 'app.css' %}" rel="stylesheet">
  
     <!-- Your stuff: Third-party javascript libraries go here -->
@@ -24,7 +24,7 @@
     <!-- script defer src="{% static 'js/bootstrap/bootstrap.bundle.min.js' %}"></script -->
     <!-- script defer src="{% static 'js/bootstrap/prism.js' %}"></script -->
     
-    <!-- place project specific Javascript in this file -->
+    <!-- place app.js which is webpack build combination of all project .js files -->
     <script defer src="{% static 'app.js' %}"></script>
     
   </head>

@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     'django_comments_xtd',
     'django_comments',
 
+    'channels',
+    'sockpuppet',
+
     'blog',
 ]
 
@@ -177,4 +180,11 @@ COMMENTS_XTD_APP_MODEL_OPTIONS = {
     }
 }
 
-
+### sockpuppet settings
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
+}
+# in the same folder as wsgi.py
+ASGI_APPLICATION = 'sockpuppet.routing.application'

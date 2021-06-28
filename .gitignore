@@ -12,3 +12,5 @@ db.sqlite3
 /tutorial/blog/__pycache__/*
 
 /tutorial/tutorial/__pycache__/*
+
+/tutorial/static/*
