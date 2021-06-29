@@ -27,5 +27,10 @@
   },
   "engines": {
     "node": ">=12"
+  },
+  "dependencies": {
+    "debounce": "^1.2.1",
+    "debounced": "0.0.5",
+    "turbolinks": "^5.2.0"
   }
 }

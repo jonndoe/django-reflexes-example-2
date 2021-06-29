@@ -38,9 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'django.contrib.humanize',
+
     'django_comments_xtd',
     'django_comments',
-
     'channels',
     'sockpuppet',
 

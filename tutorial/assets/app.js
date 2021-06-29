@@ -11,4 +11,4 @@ import("./js/bootstrap/jquery.min");
 import("./js/bootstrap/prism");
 import("./js/project");
 
-import("../blog/javascript/examplereflex_with_js");
+import("../blog/javascript/all_reflexes");
