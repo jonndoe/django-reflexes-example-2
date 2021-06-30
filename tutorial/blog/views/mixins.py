@@ -13,13 +13,3 @@ class BookSearchMixin():
         context = super().get_context_data(**kwargs)
         context["some_data"] = 'placeholder_string'
         return context
-
-
-class ChatMixin():
-    template_name = "blog/chat.html"
-    subtitle = None
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["some_data"] = 'placeholder_string'
-        return context
