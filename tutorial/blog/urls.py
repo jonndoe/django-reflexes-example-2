@@ -5,6 +5,7 @@ from blog.views.views import PostListView, PostDetailView, SearchResultView, Sea
 from blog.views.examplereflex import ExamplereflexView
 from blog.views.examplereflex_with_js import ExamplereflexWithJsView
 from blog.views.book_search import BookSearch
+from blog.views.chat import ChatView
 
 from blog.models import Post
 
@@ -21,4 +22,5 @@ urlpatterns = [
     path('example-reflex/', ExamplereflexView.as_view(), name='example_reflex'),
     path('example-reflex-js/', ExamplereflexWithJsView.as_view(), name='example_reflex_js'),
     path('book-search-reflex/', BookSearch.as_view(), name='book_search_reflex'),
+    path('chat-reflex/', ChatView.as_view(), name='chat_reflex'),
 ]

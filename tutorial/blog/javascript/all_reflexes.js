@@ -6,6 +6,7 @@ import debounced from 'debounced'
 
 import Examplereflex_With_JsController from './controllers/examplereflex_with_js_controller'
 import Book_SearchController from './controllers/book_search_controller'
+import ChatController from './controllers/chat_controller'
 
 
 debounced.initialize()
@@ -20,5 +21,6 @@ const consumer = new WebsocketConsumer(`ws${ssl}://${location.hostname}:${locati
 
 application.register("examplereflex_with_js", Examplereflex_With_JsController) 
 application.register("book_search", Book_SearchController)
+application.register("chat", ChatController)
 
 StimulusReflex.initialize(application, { consumer, debug: true })

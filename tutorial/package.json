@@ -29,8 +29,10 @@
     "node": ">=12"
   },
   "dependencies": {
+    "@rails/ujs": "^6.1.4",
     "debounce": "^1.2.1",
     "debounced": "0.0.5",
+    "lodash-es": "^4.17.21",
     "turbolinks": "^5.2.0"
   }
 }

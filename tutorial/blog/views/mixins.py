@@ -5,7 +5,7 @@ import os
 BASE_PATH = settings.BASE_DIR
 
 
-class MixinBase:
+class BookSearchMixin():
     template_name = "blog/book_search_reflex.html"
     subtitle = None
 
@@ -15,5 +15,11 @@ class MixinBase:
         return context
 
 
-class BookSearchMixin(MixinBase):
-    somedata = ()
+class ChatMixin():
+    template_name = "blog/chat.html"
+    subtitle = None
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["some_data"] = 'placeholder_string'
+        return context
