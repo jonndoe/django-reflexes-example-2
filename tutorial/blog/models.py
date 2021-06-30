@@ -35,3 +35,7 @@ class Post(models.Model):
                                'day': self.publish.strftime('%d'),
                                'slug': self.slug})
 
+
+class Subscription(models.Model):
+    email = models.EmailField()
+    name = models.CharField(max_length=256)
