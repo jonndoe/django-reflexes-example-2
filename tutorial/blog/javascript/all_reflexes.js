@@ -8,6 +8,7 @@ import Examplereflex_With_JsController from './controllers/examplereflex_with_js
 import Book_SearchController from './controllers/book_search_controller'
 import ChatController from './controllers/chat_controller'
 import SignupController from './controllers/signup_controller'
+import Blog_SearchController from './controllers/blog_search_controller'
 
 
 debounced.initialize()
@@ -24,5 +25,6 @@ application.register("examplereflex_with_js", Examplereflex_With_JsController)
 application.register("book_search", Book_SearchController)
 application.register("chat", ChatController)
 application.register("signup", SignupController)
+application.register("blog_search", Blog_SearchController)
 
 StimulusReflex.initialize(application, { consumer, debug: true })
