@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django_comments',
     'channels',
     'sockpuppet',
+    'crispy_forms',
 
     'blog',
 ]
@@ -190,3 +191,5 @@ CHANNEL_LAYERS = {
 }
 # in the same folder as wsgi.py
 ASGI_APPLICATION = 'sockpuppet.routing.application'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

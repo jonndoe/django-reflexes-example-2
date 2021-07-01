@@ -7,8 +7,8 @@
 
 {% block content %}
 <div>
-  <form data-controller="book_search" data-reflex-root="#morph">
-    <input type="text" placeholder="search for a book ..." data-target="book_search.query"
+  <form data-controller="book_search" data-reflex-root="#morph" >
+    <input class="form-control me-sm-2" type="text" placeholder="search for a book ..." data-target="book_search.query"
       data-action="debounced:input->book_search#perform" />
     <div id="morph">
       <div>

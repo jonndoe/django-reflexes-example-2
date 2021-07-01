@@ -1,12 +1,14 @@
 {% extends 'base.html' %}
 
 {% load static %}
+{% load crispy_forms_tags %}
+
 
 {% block content %}
 <h2>Sign up for newsletter!</h2>
 <form id="morph-form" data-reflex-root="#morph">
-    {{ form }}
-    <input type="submit" data-reflex="click->Signup_Reflex#add_person">
+    {{ form|crispy }}
+    <input type="submit" data-reflex="click->Signup_Reflex#add_person" class="btn btn-primary">
     <div id="morph">
         <h2>Signed:</h2>
         <table>

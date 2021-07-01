@@ -6,10 +6,10 @@
 {% block subtitle %}{{ subtitle }}{% endblock subtitle %}
 
 {% block content %}
-<div>
-  <form data-controller="blog_search" data-reflex-root="#morph">
+<div class="container">
+  <form data-controller="blog_search" data-reflex-root="#morph" class="">
     <input type="text" placeholder="search for a post ..." data-target="blog_search.query"
-      data-action="debounced:input->blog_search#perform" />
+      data-action="debounced:input->blog_search#perform" class="form-control"/>
     <div id="morph">
       <div>
         <span data-target="blog_search.activity" class="" hidden>
