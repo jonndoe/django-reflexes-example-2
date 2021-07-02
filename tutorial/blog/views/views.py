@@ -18,7 +18,7 @@ class PostListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # Added to see blue wait bar on top, as indication of working turbolinks
-        # time.sleep(random.randint(2, 3)) 
+        time.sleep(random.randint(2, 3)) 
         return context
 
 
