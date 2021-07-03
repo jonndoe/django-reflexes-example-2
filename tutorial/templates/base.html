@@ -28,7 +28,7 @@
     <!-- script defer src="{% static 'js/bootstrap/prism.js' %}"></script -->
     
     <!-- place app.js which is webpack build combination of all project .js files -->
-    <script defer src="{% static 'app.js' %}"></script>
+    <script type="module" src="{% static 'app.js' %}" data-turbolinks-eval="false"></script>
     
   </head>
   
