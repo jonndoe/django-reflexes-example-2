@@ -1,7 +1,7 @@
 {% load i18n %}
 {% load comments %}
 
-<form method="POST" action="{% comment_form_target %}" onsubmit="post.disabled = true; return true;">
+<form method="POST" action="{% comment_form_target %}" onsubmit="post.disabled = true; return true;"  id="morph-form" data-reflex-root="#morph">
     {% csrf_token %}
     <fieldset>
         <input type="hidden" name="next" value="{% url 'comments-xtd-sent' %}" />
@@ -67,7 +67,7 @@
 
     <div class="row form-group">
         <div class="offset-md-3 col-md-7">
-            <input type="submit" name="post" value="{% trans 'send' %}" class="btn btn-primary" />
+            <input type="submit" name="post" value="{% trans 'send' %}" class="btn btn-primary" data-reflex="click->Post_Comment_Reflex#postcomment"/>
             <input type="submit" name="preview" value="{% trans 'preview' %}" class="btn btn-secondary" />
         </div>
     </div>

@@ -11,4 +11,11 @@ export default class extends Controller {
     event.preventDefault()
     this.stimulate('post_commentReflex#increment', 1)
   }
+
+  post(event) {
+    console.log('comment posted')
+    event.preventDefault()
+    this.stimulate('post_commentReflex#post', 'default comment')
+  }
+
 }
