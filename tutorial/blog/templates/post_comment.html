@@ -1,0 +1,14 @@
+
+{% load static %}
+<body>
+    
+    
+    <script type="module" src="{% static 'js/post_comment.js' %}"></script>
+
+    <a  href="#"
+        data-controller="post_comment"
+        data-action="click->post_comment#increment"
+        data-count="{{ count }}"
+    >Increment </a><span>{{ count }}</span>
+    
+</body>
