@@ -6,6 +6,10 @@ from django_comments.views.utils import next_redirect, confirmation_view
 from django.shortcuts import render
 from django.contrib.sites.shortcuts import get_current_site
 
+from django_comments_xtd import get_form, get_model as get_comment_model
+XtdComment = get_comment_model()
+
+
 class PostCommentReflex(Reflex):
     def increment(self, step=1):
         self.count = int(self.element.dataset['count']) + step
@@ -17,6 +21,14 @@ class PostCommentReflex(Reflex):
         print('++++++++++++++++ self.request is:', self.request)
         print('++++++++++++++++ self.params are:', self.params)
         pass
+
+    def replycomment(self):
+        self.cid = int(self.element.dataset['cid'])
+        cid = int(self.element.dataset['cid'])
+        comment = XtdComment.objects.get(pk=cid)
+        self.form_reply = get_form()(comment.content_object, comment=comment)
+        pass
+
 
     def postcomment(self, next=None, using=None):
         """
@@ -101,3 +113,7 @@ class PostCommentReflex(Reflex):
 
         #return next_redirect(request, fallback=next or 'comments-comment-done',
                              #c=comment._get_pk_val())
+
+    def reply(self):
+        print('+++++++++++++++++++ reply to comment!!!')
+        pass

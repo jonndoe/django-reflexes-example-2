@@ -27,10 +27,10 @@ class PostDetailView(DetailView):
     context_object_name = 'post'
     template_name = 'blog/post_detail.html'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # Added to see blue wait bar on top, as indication of working turbolinks
-        # time.sleep(random.randint(2, 4)) 
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        # default value for 'cid'
+        context['cid'] = 0
         return context
 
 
