@@ -34,17 +34,6 @@ class PostDetailView(DetailView):
         return context
 
 
-class SearchPageView(TemplateView):
-    model = Post
-    template_name = "blog/search.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # Added to see blue wait bar on top, as indication of working turbolinks
-        # time.sleep(random.randint(2, 3)) 
-        return context
-
-
 class SearchResultView(ListView):
     model = Post
     context_object_name = 'post_list'

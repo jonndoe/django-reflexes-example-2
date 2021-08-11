@@ -16,6 +16,5 @@ urlpatterns = [
         name='homepage'),
 ]
 
-
 if settings.DEBUG:
     urlpatterns += staticfiles_urlpatterns()

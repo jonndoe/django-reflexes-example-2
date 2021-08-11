@@ -5,7 +5,18 @@
 
 {% block subtitle %}{{ subtitle }}{% endblock subtitle %}
 
+
+
+
 {% block content %}
+
+<div class="row justify-content-center flex-fill">
+  <div class="col-md-10">
+    <p class="lead">These are results of search with <code>Reflexes</code> functionality.</p>
+    <p class="lead">Type in to see its <strong>reactive</strong>.</p>
+  </div>
+</div>
+
 <div class="container">
   <form data-controller="blog_search" data-reflex-root="#morph" class="">
     <input type="text" placeholder="search for a post ..." data-target="blog_search.query"
