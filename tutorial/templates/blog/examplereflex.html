@@ -1,17 +1,13 @@
 {% extends 'base.html' %}
-
-
 {% load static %}
-{% block content %}
-    
-    <h3> This is simple reflex, it does not have javascript controller.</h3>
 
+{% block content %}
+    <h3 class="lead"> This is simple <code>reflex</code>, it does not have <strong>javascript controller</strong>.</h3>
     <script src="{% static 'sockpuppet/sockpuppet.js' %}"></script>
-    <a
+    <button class="btn btn-success"
       href="#"
       data-reflex="click->ExamplereflexReflex#increment"
       data-count="{{ count }}"
-    >Increment </a><span>{{ count }}</span>
-    
+    >Increment </button><button class="btn btn-dark"><strong>{{ count }}</strong></button>
 {% endblock content %}    
 
