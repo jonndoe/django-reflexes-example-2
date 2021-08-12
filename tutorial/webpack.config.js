@@ -9,7 +9,7 @@ module.exports = [
       app: "./assets/app.js",
     },
     output: {
-      path: path.resolve(__dirname, "static"), // Should be in STATICFILES_DIRS
+      path: path.resolve(__dirname, "static-webpack"), // Should be in STATICFILES_DIRS
       publicPath: "/static/",                  // Should match Django STATIC_URL
       filename: "[name].js",                   // No filename hashing, Django takes care of this
       chunkFilename: "[id]-[chunkhash].js",    // DO have Webpack hash chunk filename

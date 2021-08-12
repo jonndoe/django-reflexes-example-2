@@ -1,12 +1,10 @@
 //project.js
 'use strict'
 
-
-
-document.addEventListener("turbolinks:load", function () {
-  // We will live our vanilla js code handler
-});
-
-
 console.log('Entered project.js file!!!');
 
+
+<!-- For django-comments-xtd functionality -->
+$(function() {
+    $('[data-toggle="tooltip"]').tooltip({html: true});
+});
