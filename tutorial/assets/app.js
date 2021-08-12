@@ -1,4 +1,4 @@
-import "./css/bootstrap.lumen.min.css";
+import "./css/bootstrap.css";
 import "./css/project.css";
 
 import("./js/bootstrap/bootstrap.bundle.min");
