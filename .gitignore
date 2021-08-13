@@ -13,4 +13,4 @@ db.sqlite3
 
 /tutorial/tutorial/__pycache__/*
 
-/tutorial/static/*
+/tutorial/static-webpack/*
