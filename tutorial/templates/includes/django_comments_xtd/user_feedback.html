@@ -7,9 +7,13 @@
         {{ item.likedit_users|length }}</a>
     {% endif %}
 
-    <a href="{% url 'comments-xtd-like' item.comment.pk %}"
+    <a href=""
+       data-reflex="click->Post_Comment_Reflex#likecomment"
+       data-commentid="{{ item.comment.pk }}"
        class="{% if not item.likedit %}mutedlink{% endif %}">
-        <span class="fas fa-thumbs-up fa-lg text-success"></span></a>
+        <span class="fas fa-thumbs-up fa-lg text-success"></span>
+    </a>
+
     <span class="text-muted">|</span>
 
     {% if show_feedback and item.dislikedit_users %}
@@ -17,8 +21,10 @@
        title="{{ item.dislikedit_users|join:'<br/>' }}">
         {{ item.dislikedit_users|length }}</a>
     {% endif %}
-  
-    <a href="{% url 'comments-xtd-dislike' item.comment.pk %}"
+
+    <a href="#"
+       data-reflex="click->Post_Comment_Reflex#dislikecomment"
+       data-commentid="{{ item.comment.pk }}"
        class="{% if not item.dislikedit %}mutedlink{% endif %}">
         <span class="fas fa-thumbs-down fa-lg text-danger"></span>
     </a>

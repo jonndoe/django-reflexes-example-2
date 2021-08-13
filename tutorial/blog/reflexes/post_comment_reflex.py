@@ -1,19 +1,62 @@
+from __future__ import unicode_literals
+import six
+
+from django.apps import apps
+from django.contrib.auth import REDIRECT_FIELD_NAME
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import redirect_to_login
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.sites.shortcuts import get_current_site
+from django.core import signing
+from django.http import Http404, HttpResponseForbidden, HttpResponseBadRequest
+from django.shortcuts import get_object_or_404, redirect, render, resolve_url
+from django.template import loader
+from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
+from django.views.decorators.csrf import csrf_protect
+from django.views.defaults import bad_request
+from django.views.generic import ListView
+
+
+from django_comments.models import CommentFlag
+from django_comments.views.moderation import perform_flag
+from django_comments.views.utils import next_redirect, confirmation_view
+
+from django_comments_xtd import (
+    comment_was_posted, comment_will_be_posted,
+    get_form, get_model as get_comment_model,
+    signals, signed  #  module.
+)
+from django_comments_xtd.conf import settings
+from django_comments_xtd.models import (
+    TmpXtdComment,
+    MaxThreadLevelExceededException,
+    LIKEDIT_FLAG, DISLIKEDIT_FLAG
+)
+from django_comments_xtd.utils import (
+    get_current_site_id, send_mail, get_app_model_options
+)
+
+
 from sockpuppet.reflex import Reflex
 from django.apps import apps
 import django_comments
 from django_comments import signals
 from django_comments.views.utils import next_redirect, confirmation_view
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.sites.shortcuts import get_current_site
 
 from django_comments_xtd import get_form, get_model as get_comment_model
 XtdComment = get_comment_model()
+
+from django_comments_xtd.views import perform_dislike, perform_like
 
 
 class PostCommentReflex(Reflex):
     def increment(self, step=1):
         self.count = int(self.element.dataset['count']) + step
 
+    # This is just debug/test function, delete it later on.
     def post(self, comment='no comment was provided'):
         # to do: add comment to database
         print('++++++++++++++++ added comment to database!!!')
@@ -29,6 +72,63 @@ class PostCommentReflex(Reflex):
         self.form_reply = get_form()(comment.content_object, comment=comment)
         pass
 
+
+    def dislikecomment(self):
+        request = self.request
+        comment_id = int(self.element.dataset['commentid'])
+        """
+        Dislike a comment. Confirmation on GET, action on POST.
+
+        Templates: :template:`django_comments_xtd/dislike.html`,
+        Context:
+            comment
+                the flagged `comments.comment` object
+        """
+        comment = get_object_or_404(get_comment_model(), pk=comment_id,
+                                    site__pk=get_current_site_id(request))
+        if not get_app_model_options(comment=comment)['allow_feedback']:
+            ctype = ContentType.objects.get_for_model(comment.content_object)
+            raise Http404("Comments posted to instances of '%s.%s' are not "
+                          "explicitly allowed to receive 'disliked it' flags. "
+                          "Check the COMMENTS_XTD_APP_MODEL_OPTIONS "
+                          "setting." % (ctype.app_label, ctype.model))
+        flag_qs = comment.flags.prefetch_related('user')\
+            .filter(flag=DISLIKEDIT_FLAG)
+        users_dislikedit = [item.user for item in flag_qs]
+        already_disliked_it = request.user in users_dislikedit
+        if already_disliked_it:
+            pass
+        else:
+            perform_dislike(request, comment)
+
+    def likecomment(self):
+        request = self.request
+        comment_id = int(self.element.dataset['commentid'])
+        """
+        Like a comment. Confirmation on GET, action on POST.
+
+        Templates: :template:`django_comments_xtd/like.html`,
+        Context:
+            comment
+                the flagged `comments.comment` object
+        """
+        comment = get_object_or_404(get_comment_model(), pk=comment_id,
+                                    site__pk=get_current_site_id(request))
+        if not get_app_model_options(comment=comment)['allow_feedback']:
+            ctype = ContentType.objects.get_for_model(comment.content_object)
+            raise Http404("Comments posted to instances of '%s.%s' are not "
+                          "explicitly allowed to receive 'liked it' flags. "
+                          "Check the COMMENTS_XTD_APP_MODEL_OPTIONS "
+                          "setting." % (ctype.app_label, ctype.model))
+
+        flag_qs = comment.flags.prefetch_related('user') \
+                .filter(flag=LIKEDIT_FLAG)
+        users_likedit = [item.user for item in flag_qs]
+        already_liked_it = request.user in users_likedit
+        if already_liked_it:
+            pass
+        else:
+            perform_like(request, comment)
 
     def postcomment(self, next=None, using=None):
         """
