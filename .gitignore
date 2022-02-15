@@ -5,12 +5,14 @@ db.sqlite3
 
 *.pyc
 
-/tutorial/collectedstatic/*
+./tutorial/collectedstatic/*
 
-/tutorial/db.sqlite3
+./tutorial/db.sqlite3
 
-/tutorial/blog/__pycache__/*
+./tutorial/blog/__pycache__/*
 
-/tutorial/tutorial/__pycache__/*
+./tutorial/tutorial/__pycache__/*
 
-/tutorial/static-webpack/*
+**/static-webpack
+
+./tutorial/package-lock.json
