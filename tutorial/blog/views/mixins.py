@@ -1,6 +1,7 @@
-from collections import defaultdict
-from django.conf import settings
 import os
+from collections import defaultdict
+
+from django.conf import settings
 
 BASE_PATH = settings.BASE_DIR
 

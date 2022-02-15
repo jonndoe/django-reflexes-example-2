@@ -1,5 +1,7 @@
 from sockpuppet.reflex import Reflex
+
 from blog.models import Subscription
+
 
 class SignupReflex(Reflex):
 

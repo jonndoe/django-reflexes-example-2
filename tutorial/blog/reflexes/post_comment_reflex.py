@@ -1,52 +1,20 @@
 from __future__ import unicode_literals
-import six
 
+import django_comments
 from django.apps import apps
-from django.contrib.auth import REDIRECT_FIELD_NAME
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.views import redirect_to_login
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.sites.shortcuts import get_current_site
-from django.core import signing
-from django.http import Http404, HttpResponseForbidden, HttpResponseBadRequest
-from django.shortcuts import get_object_or_404, redirect, render, resolve_url
-from django.template import loader
-from django.urls import reverse
-from django.utils.translation import gettext_lazy as _
-from django.views.decorators.csrf import csrf_protect
-from django.views.defaults import bad_request
-from django.views.generic import ListView
-
-
-from django_comments.models import CommentFlag
-from django_comments.views.moderation import perform_flag
-from django_comments.views.utils import next_redirect, confirmation_view
-
-from django_comments_xtd import (
-    comment_was_posted, comment_will_be_posted,
-    get_form, get_model as get_comment_model,
-    signals, signed  #  module.
-)
-from django_comments_xtd.conf import settings
-from django_comments_xtd.models import (
-    TmpXtdComment,
-    MaxThreadLevelExceededException,
-    LIKEDIT_FLAG, DISLIKEDIT_FLAG
-)
-from django_comments_xtd.utils import (
-    get_current_site_id, send_mail, get_app_model_options
-)
-
-
-from sockpuppet.reflex import Reflex
-from django.apps import apps
-import django_comments
+from django.http import Http404
+from django.shortcuts import get_object_or_404, render
 from django_comments import signals
-from django_comments.views.utils import next_redirect, confirmation_view
-from django.shortcuts import render, get_object_or_404
-from django.contrib.sites.shortcuts import get_current_site
+from django_comments_xtd import get_form
+from django_comments_xtd import get_model as get_comment_model
+#from django_comments_xtd import signals
+from django_comments_xtd.models import DISLIKEDIT_FLAG, LIKEDIT_FLAG
+from django_comments_xtd.utils import (get_app_model_options,
+                                       get_current_site_id)
+from sockpuppet.reflex import Reflex
 
-from django_comments_xtd import get_form, get_model as get_comment_model
 XtdComment = get_comment_model()
 
 from django_comments_xtd.views import perform_dislike, perform_like

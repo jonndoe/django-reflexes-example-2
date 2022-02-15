@@ -1,5 +1,6 @@
+from django.db.models import Q
 from sockpuppet.reflex import Reflex
-from django.db.models import Q 
+
 from blog.models import Post
 
 

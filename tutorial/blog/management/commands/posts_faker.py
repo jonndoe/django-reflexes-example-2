@@ -1,7 +1,9 @@
-from django.template.defaultfilters import slugify
 from django.core.management.base import BaseCommand
+from django.template.defaultfilters import slugify
 from faker import Faker
+
 from blog.models import Post
+
 
 class Command(BaseCommand):
     help = 'In charge of create posts with faker, by default create 20.'

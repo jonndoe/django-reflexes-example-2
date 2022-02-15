@@ -1,5 +1,6 @@
-from django.views.generic.base import TemplateView
 from django.core.cache import cache
+from django.views.generic.base import TemplateView
+
 
 class ChatView(TemplateView):
     subtitle = 'Chat'

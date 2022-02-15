@@ -1,8 +1,8 @@
-from django.db.models import Q
 import random
 import time
 
-from django.views.generic import ListView, DetailView, TemplateView
+from django.db.models import Q
+from django.views.generic import DetailView, ListView, TemplateView
 
 # use this import instead of short 'from .models' to escape RuntimeErros
 # https://medium.com/@michal.bock/fix-weird-exceptions-when-running-django-tests-f58def71b59a

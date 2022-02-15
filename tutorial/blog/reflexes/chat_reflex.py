@@ -1,7 +1,7 @@
-from sockpuppet.reflex import Reflex
-from sockpuppet.channel import Channel
 from django.core.cache import cache
 from django.utils import timezone
+from sockpuppet.channel import Channel
+from sockpuppet.reflex import Reflex
 
 
 class ChatReflex(Reflex):

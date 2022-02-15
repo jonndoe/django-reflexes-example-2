@@ -1,13 +1,12 @@
 from django.conf.urls import url
 from django.urls import path
 
-from blog.views.views import PostListView, PostDetailView, SearchResultView
+from blog.views.blog_search import BlogSearchView
+from blog.views.chat import ChatView
 from blog.views.examplereflex import ExamplereflexView
 from blog.views.examplereflex_with_js import ExamplereflexWithJsView
-from blog.views.chat import ChatView
 from blog.views.signup import SignupView
-from blog.views.blog_search import BlogSearchView
-
+from blog.views.views import PostDetailView, PostListView, SearchResultView
 
 app_name = 'blog'
 
