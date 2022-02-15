@@ -14,5 +14,5 @@ db.sqlite3
 ./tutorial/tutorial/__pycache__/*
 
 **/static-webpack
-
-./tutorial/package-lock.json
+**/node_modules
+**/tutorial/package-lock.json
