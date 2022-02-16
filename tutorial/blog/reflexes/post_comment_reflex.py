@@ -9,41 +9,39 @@ from django.shortcuts import get_object_or_404, render
 from django_comments import signals
 from django_comments_xtd import get_form
 from django_comments_xtd import get_model as get_comment_model
-#from django_comments_xtd import signals
+
+# from django_comments_xtd import signals
 from django_comments_xtd.models import DISLIKEDIT_FLAG, LIKEDIT_FLAG
-from django_comments_xtd.utils import (get_app_model_options,
-                                       get_current_site_id)
+from django_comments_xtd.utils import get_app_model_options, get_current_site_id
+from django_comments_xtd.views import perform_dislike, perform_like
 from sockpuppet.reflex import Reflex
 
 XtdComment = get_comment_model()
 
-from django_comments_xtd.views import perform_dislike, perform_like
-
 
 class PostCommentReflex(Reflex):
     def increment(self, step=1):
-        self.count = int(self.element.dataset['count']) + step
+        self.count = int(self.element.dataset["count"]) + step
 
     # This is just debug/test function, delete it later on.
-    def post(self, comment='no comment was provided'):
+    def post(self, comment="no comment was provided"):
         # to do: add comment to database
-        print('++++++++++++++++ added comment to database!!!')
-        print('++++++++++++++++ comment is', comment)
-        print('++++++++++++++++ self.request is:', self.request)
-        print('++++++++++++++++ self.params are:', self.params)
+        print("++++++++++++++++ added comment to database!!!")
+        print("++++++++++++++++ comment is", comment)
+        print("++++++++++++++++ self.request is:", self.request)
+        print("++++++++++++++++ self.params are:", self.params)
         pass
 
     def replycomment(self):
-        self.cid = int(self.element.dataset['cid'])
-        cid = int(self.element.dataset['cid'])
+        self.cid = int(self.element.dataset["cid"])
+        cid = int(self.element.dataset["cid"])
         comment = XtdComment.objects.get(pk=cid)
         self.form_reply = get_form()(comment.content_object, comment=comment)
         pass
 
-
     def dislikecomment(self):
         request = self.request
-        comment_id = int(self.element.dataset['commentid'])
+        comment_id = int(self.element.dataset["commentid"])
         """
         Dislike a comment. Confirmation on GET, action on POST.
 
@@ -52,16 +50,18 @@ class PostCommentReflex(Reflex):
             comment
                 the flagged `comments.comment` object
         """
-        comment = get_object_or_404(get_comment_model(), pk=comment_id,
-                                    site__pk=get_current_site_id(request))
-        if not get_app_model_options(comment=comment)['allow_feedback']:
+        comment = get_object_or_404(
+            get_comment_model(), pk=comment_id, site__pk=get_current_site_id(request)
+        )
+        if not get_app_model_options(comment=comment)["allow_feedback"]:
             ctype = ContentType.objects.get_for_model(comment.content_object)
-            raise Http404("Comments posted to instances of '%s.%s' are not "
-                          "explicitly allowed to receive 'disliked it' flags. "
-                          "Check the COMMENTS_XTD_APP_MODEL_OPTIONS "
-                          "setting." % (ctype.app_label, ctype.model))
-        flag_qs = comment.flags.prefetch_related('user')\
-            .filter(flag=DISLIKEDIT_FLAG)
+            raise Http404(
+                "Comments posted to instances of '%s.%s' are not "
+                "explicitly allowed to receive 'disliked it' flags. "
+                "Check the COMMENTS_XTD_APP_MODEL_OPTIONS "
+                "setting." % (ctype.app_label, ctype.model)
+            )
+        flag_qs = comment.flags.prefetch_related("user").filter(flag=DISLIKEDIT_FLAG)
         users_dislikedit = [item.user for item in flag_qs]
         already_disliked_it = request.user in users_dislikedit
         if already_disliked_it:
@@ -71,7 +71,7 @@ class PostCommentReflex(Reflex):
 
     def likecomment(self):
         request = self.request
-        comment_id = int(self.element.dataset['commentid'])
+        comment_id = int(self.element.dataset["commentid"])
         """
         Like a comment. Confirmation on GET, action on POST.
 
@@ -80,17 +80,19 @@ class PostCommentReflex(Reflex):
             comment
                 the flagged `comments.comment` object
         """
-        comment = get_object_or_404(get_comment_model(), pk=comment_id,
-                                    site__pk=get_current_site_id(request))
-        if not get_app_model_options(comment=comment)['allow_feedback']:
+        comment = get_object_or_404(
+            get_comment_model(), pk=comment_id, site__pk=get_current_site_id(request)
+        )
+        if not get_app_model_options(comment=comment)["allow_feedback"]:
             ctype = ContentType.objects.get_for_model(comment.content_object)
-            raise Http404("Comments posted to instances of '%s.%s' are not "
-                          "explicitly allowed to receive 'liked it' flags. "
-                          "Check the COMMENTS_XTD_APP_MODEL_OPTIONS "
-                          "setting." % (ctype.app_label, ctype.model))
+            raise Http404(
+                "Comments posted to instances of '%s.%s' are not "
+                "explicitly allowed to receive 'liked it' flags. "
+                "Check the COMMENTS_XTD_APP_MODEL_OPTIONS "
+                "setting." % (ctype.app_label, ctype.model)
+            )
 
-        flag_qs = comment.flags.prefetch_related('user') \
-                .filter(flag=LIKEDIT_FLAG)
+        flag_qs = comment.flags.prefetch_related("user").filter(flag=LIKEDIT_FLAG)
         users_likedit = [item.user for item in flag_qs]
         already_liked_it = request.user in users_likedit
         if already_liked_it:
@@ -107,12 +109,15 @@ class PostCommentReflex(Reflex):
         """
         # Fill out some initial data fields from an authenticated user, if present
 
-        #data = self.request.POST.copy()
+        # data = self.request.POST.copy()
         data = self.params
         if self.request.user.is_authenticated:
-            if not data.get('name', ''):
-                data["name"] = self.request.user.get_full_name() or self.request.user.get_username()
-            if not data.get('email', ''):
+            if not data.get("name", ""):
+                data["name"] = (
+                    self.request.user.get_full_name()
+                    or self.request.user.get_username()
+                )
+            if not data.get("email", ""):
                 data["email"] = self.request.user.email
 
         # Look up the object we're trying to comment about
@@ -132,7 +137,7 @@ class PostCommentReflex(Reflex):
 
         # Check security information
         if form.security_errors():
-            return 'Failed , Security Errors!!!'
+            return "Failed , Security Errors!!!"
 
         # If there are errors or if we requested a preview show the comment
         if form.errors or preview:
@@ -140,14 +145,19 @@ class PostCommentReflex(Reflex):
                 # These first two exist for purely historical reasons.
                 # Django v1.0 and v1.1 allowed the underscore format for
                 # preview templates, so we have to preserve that format.
-                "comments/%s_%s_preview.html" % (model._meta.app_label, model._meta.model_name),
+                "comments/%s_%s_preview.html"
+                % (model._meta.app_label, model._meta.model_name),
                 "comments/%s_preview.html" % model._meta.app_label,
                 # Now the usual directory based template hierarchy.
-                "comments/%s/%s/preview.html" % (model._meta.app_label, model._meta.model_name),
+                "comments/%s/%s/preview.html"
+                % (model._meta.app_label, model._meta.model_name),
                 "comments/%s/preview.html" % model._meta.app_label,
                 "comments/preview.html",
             ]
-            return render(self.request, template_list, {
+            return render(
+                self.request,
+                template_list,
+                {
                     "comment": form.data.get("comment", ""),
                     "form": form,
                     "next": data.get("next", next),
@@ -162,9 +172,7 @@ class PostCommentReflex(Reflex):
 
         # Signal that the comment is about to be saved
         responses = signals.comment_will_be_posted.send(
-            sender=comment.__class__,
-            comment=comment,
-            request=self.request
+            sender=comment.__class__, comment=comment, request=self.request
         )
 
         for (receiver, response) in responses:
@@ -174,14 +182,12 @@ class PostCommentReflex(Reflex):
         # Save the comment and signal that it was saved
         comment.save()
         signals.comment_was_posted.send(
-            sender=comment.__class__,
-            comment=comment,
-            request=self.request
+            sender=comment.__class__, comment=comment, request=self.request
         )
 
-        #return next_redirect(request, fallback=next or 'comments-comment-done',
-                             #c=comment._get_pk_val())
+        # return next_redirect(request, fallback=next or 'comments-comment-done',
+        # c=comment._get_pk_val())
 
     def reply(self):
-        print('+++++++++++++++++++ reply to comment!!!')
+        print("+++++++++++++++++++ reply to comment!!!")
         pass

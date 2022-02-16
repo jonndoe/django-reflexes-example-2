@@ -8,30 +8,46 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Post',
+            name="Post",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=250)),
-                ('slug', models.SlugField(max_length=250, unique_for_date='publish')),
-                ('body', models.TextField()),
-                ('allow_comments', models.BooleanField(default=True, verbose_name='allow comments')),
-                ('publish', models.DateTimeField(default=django.utils.timezone.now)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=250)),
+                ("slug", models.SlugField(max_length=250, unique_for_date="publish")),
+                ("body", models.TextField()),
+                (
+                    "allow_comments",
+                    models.BooleanField(default=True, verbose_name="allow comments"),
+                ),
+                ("publish", models.DateTimeField(default=django.utils.timezone.now)),
             ],
-            options={
-                'ordering': ('-publish',),
-            },
+            options={"ordering": ("-publish",),},
         ),
         migrations.CreateModel(
-            name='Subscription',
+            name="Subscription",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('email', models.EmailField(max_length=254)),
-                ('name', models.CharField(max_length=256)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("email", models.EmailField(max_length=254)),
+                ("name", models.CharField(max_length=256)),
             ],
         ),
     ]
